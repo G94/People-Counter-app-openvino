@@ -1,18 +1,17 @@
 # People-Counter-app-openvino
-This  project was developed on the program nanodegree Intel AI on the Edge.
-
-
-
-# Project Write-Up
-
+This  project was developed on the [Intel Edge for Iot Developers Nanodegree](https://www.udacity.com/course/intel-edge-ai-for-iot-developers-nanodegree--nd131).
+The pretrained models were downloaded from thie tensorflow zoo [repository](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)
 
 ## Explaining Custom Layers
-The process behind converting custom layers involves...
+The process behind converting custom layers involves 
 
-Some of the potential reasons for handling custom layers are...
+The main potential reasons for handling custom layers are:
+- Layers that are not recognised by openvino are going to throw an error in some point of the process.
+- They have some differences depending on the original framework, we could add the custom layers as extensions of the Model Optimizer or register the layer as **Custom**, then we use the original framework to calculate the output shape of the layer.
+
+To see the full list of Supported layers go to following [link](https://docs.openvinotoolkit.org/2019_R3/_docs_MO_DG_prepare_model_Supported_Frameworks_Layers.html)
 
 ## Comparing Model Performance
-
 My method(s) to compare models before and after conversion to Intermediate Representations
 were...
 
