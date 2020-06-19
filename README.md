@@ -5,25 +5,46 @@ The pretrained models were downloaded from thie tensorflow zoo [repository](http
 ## Explaining Custom Layers
 The process behind converting custom layers involves 
 
+
+
 The main potential reasons for handling custom layers are:
 - Layers that are not recognised by openvino are going to throw an error in some point of the process.
 - They have some differences depending on the original framework, we could add the custom layers as extensions of the Model Optimizer or register the layer as **Custom**, then we use the original framework to calculate the output shape of the layer.
 
-To see the full list of Supported layers go to following [link](https://docs.openvinotoolkit.org/2019_R3/_docs_MO_DG_prepare_model_Supported_Frameworks_Layers.html)
+To see the full list of **Supported Layers** go to following [link](https://docs.openvinotoolkit.org/2019_R3/_docs_MO_DG_prepare_model_Supported_Frameworks_Layers.html)
 
 ## Comparing Model Performance
-My method(s) to compare models before and after conversion to Intermediate Representations
-were...
+My method(s) to compare models before and after conversion to Intermediate Representations was by passing de Pedestrian video as input between both implementations:
 
-The difference between model accuracy pre- and post-conversion was...
-
+### Model size
 The size of the model pre- and post-conversion was...
+| |SSD MobileNet V2 COCO|SSD Coco MobileNet V1|
+|-|-|-|
+|Before Conversion|68 MB|28 MB|
+|After Conversion|65 MB|26 MB|
 
+### Inference Time
 The inference time of the model pre- and post-conversion was...
+| |SSD MobileNet V2|SSD Coco MobileNet V1|
+|-|-|-|
+|Before Conversion|50 ms|55 ms|
+|After Conversion|60 ms|60 ms|
+
+The difference between model accuracy pre - and post-conversion was
+
 
 ## Assess Model Use Cases
+Some of the potential use cases of the people counter app are preventing people to get too close to each other:
+1. This year we have been hit by a pandmic scenario, so using a camera to warn people to hold distance from each other in massive centers is critic, it will also help in:
 
-Some of the potential use cases of the people counter app are...
+- Fullfill protocols of health security for any stablishment.
+- Protect people from getting covid19 on their systems.
+
+
+2. Check maximum capacity of a stablishment.
+- It will prevent stablishment of exceed the maximun number of people they can hold on their area.
+
+
 
 Each of these use cases would be useful because...
 
