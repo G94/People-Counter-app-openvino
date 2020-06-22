@@ -7,8 +7,8 @@ The pretrained models were downloaded from the tensorflow zoo [repository](https
 The process behind converting custom layers involves 
 
 The main potential reasons for handling custom layers are:
-- Layers that are not recognised by openvino are going to throw an error in some point of the process.
-- They have some differences depending on the original framework, we could add the custom layers as extensions of the Model Optimizer or register the layer as **Custom**, then we use the original framework to calculate the output shape of the layer.
+  - Layers that are not recognised by openvino are going to throw an error in some point of the process.
+  - They have some differences depending on the original framework, we could add the custom layers as extensions of the Model Optimizer or register the layer as **Custom**, then we use the original framework to calculate the output shape of the layer.
 
 To see the full list of **Supported Layers** go to following [link](https://docs.openvinotoolkit.org/2019_R3/_docs_MO_DG_prepare_model_Supported_Frameworks_Layers.html)
 
@@ -32,20 +32,19 @@ The inference time of the model pre- and post-conversion was...
 
 
 
-
 ## Assess Model Use Cases
 Some of the potential use cases of the people counter app are preventing people to get too close to each other:
 1. This year we have been hit by a pandemic scenario, so using a camera to warn people to hold distance from each other in massive centers is critic, it will also help in:
 
-- Fullfill protocols of health security for any stablishment.
-- Protect people from getting covid19 on their systems.
+  - Fullfill protocols of health security for any stablishment.
+  - Protect people from getting covid19 on their systems.
 
 2. Check maximum capacity of a stablishment.
-- It will prevent stablishment of exceed the maximun number of people they can hold on their area.
+  - It will prevent stablishment of exceed the maximun number of people they can hold on their area.
 
 3. It could serve as a system to measure the time a client spend in a queue in order to optimize this delays.
-- Banks
-- Markets
+  - Banks
+  - Markets
 
 4. It might be possible to adapt the model to warn officers if burglars are trying to get inside of a stablishment, because of the time they spend now that at nights is difficult to cover wide areas.
 
@@ -64,6 +63,8 @@ deployed edge model. The potential effects of each of these are as follows:
 
 `Camera focal length/image`: 
 after conversion: In production, It could be possible to store a sample of the frames an the boxes or the labels, to validate if the model is still performing well or it has decrease its performance. we could adjust the transformation with the open vino framework.
+
+-----
 
 ## Model Research
 
