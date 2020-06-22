@@ -35,7 +35,7 @@ The difference between model accuracy pre - and post-conversion was
 
 ## Assess Model Use Cases
 Some of the potential use cases of the people counter app are preventing people to get too close to each other:
-1. This year we have been hit by a pandmic scenario, so using a camera to warn people to hold distance from each other in massive centers is critic, it will also help in:
+1. This year we have been hit by a pandemic scenario, so using a camera to warn people to hold distance from each other in massive centers is critic, it will also help in:
 
 - Fullfill protocols of health security for any stablishment.
 - Protect people from getting covid19 on their systems.
@@ -44,14 +44,27 @@ Some of the potential use cases of the people counter app are preventing people 
 2. Check maximum capacity of a stablishment.
 - It will prevent stablishment of exceed the maximun number of people they can hold on their area.
 
+3. It could serve as a system to measure the time a client spend in a queue in order to optimize this delays.
+- Banks
+- Markets
 
-
-Each of these use cases would be useful because...
+4. It might be possible to adapt the model to warn officers if burglars are trying to get inside of a stablishment, because of the time they spend now that at nights is difficult to cover wide areas.
 
 ## Assess Effects on End User Needs
 
+
 Lighting, model accuracy, and camera focal length/image size have different effects on a
-deployed edge model. The potential effects of each of these are as follows...
+deployed edge model. The potential effects of each of these are as follows:
+
+`Lack of light in the video`: It will directly affect the accuracy of the model , but it could be possible to change the device with better features at performing in poorly lit areas. Another option is to preprocess the image to improve the quality of it.
+
+`Model accuracy`: 
+- Model training: the model is validated before convert it to an intermediate representation with a set of images the model have never seen before.
+
+-  Model validation after conversion: In production, It could be possible to store a sample of the frames an the boxes or the labels, to validate if the model is still performing well or it has decrease its performance. we could adjust the transformation with the open vino framework.
+
+`Camera focal length/image`: 
+after conversion: In production, It could be possible to store a sample of the frames an the boxes or the labels, to validate if the model is still performing well or it has decrease its performance. we could adjust the transformation with the open vino framework.
 
 ## Model Research
 
@@ -64,11 +77,13 @@ In investigating potential people counter models, I tried each of the following 
 - Model 1: [faster_rcnn_inception_v2_coco]
   - [Model Source]
   - I converted the model to an Intermediate Representation with the following arguments...
-  
+  ```
   wget http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
+  ```
   
+  ```
  tar -xvf faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
- 
+ ```
  Convert to Intermeditate Representation
  python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/faster_rcnn_support.json
  
