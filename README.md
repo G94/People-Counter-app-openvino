@@ -40,7 +40,6 @@ Some of the potential use cases of the people counter app are preventing people 
 - Fullfill protocols of health security for any stablishment.
 - Protect people from getting covid19 on their systems.
 
-
 2. Check maximum capacity of a stablishment.
 - It will prevent stablishment of exceed the maximun number of people they can hold on their area.
 
@@ -77,17 +76,25 @@ In investigating potential people counter models, I tried each of the following 
 - Model 1: [faster_rcnn_inception_v2_coco]
   - [Model Source]
   - I converted the model to an Intermediate Representation with the following arguments...
+  
   ```
   wget http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
   ```
   
-  ```
+  
+ ```
  tar -xvf faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
  ```
- Convert to Intermeditate Representation
- python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/faster_rcnn_support.json
  
- Model Optimizer arguments:
+ 
+ #### Convert to Intermeditate Representation
+ ```
+ python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/faster_rcnn_support.json
+ ```
+  
+#### Model Optimizer arguments:
+
+```console
 Common parameters:
         - Path to the Input Model:      /home/workspace/models/faster_rcnn_inception_v2_coco_2018_01_28/frozen_inference_graph.pb
         - Path for generated IR:        /home/workspace/models/faster_rcnn_inception_v2_coco_2018_01_28/.
@@ -120,10 +127,12 @@ The graph output nodes "num_detections", "detection_boxes", "detection_classes",
 [ SUCCESS ] XML file: /home/workspace/models/faster_rcnn_inception_v2_coco_2018_01_28/./frozen_inference_graph.xml
 [ SUCCESS ] BIN file: /home/workspace/models/faster_rcnn_inception_v2_coco_2018_01_28/./frozen_inference_graph.bin
 [ SUCCESS ] Total execution time: 145.63 seconds.
+``` 
  
  
-  - The model was insufficient for the app because...
-  - I tried to improve the model for the app by...
+- The model was insufficient for the app because...
+- I tried to improve the model for the app by...
+  
   
 - Model 2: [ssd_inception_v2_coco_2018_01_28]
   - [Model Source]
