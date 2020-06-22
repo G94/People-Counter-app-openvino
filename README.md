@@ -1,11 +1,10 @@
 # People-Counter-app-openvino
 This  project was developed on the [Intel Edge for Iot Developers Nanodegree](https://www.udacity.com/course/intel-edge-ai-for-iot-developers-nanodegree--nd131).
-The pretrained models were downloaded from thie tensorflow zoo [repository](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)
+
+The pretrained models were downloaded from the tensorflow zoo [repository](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md), which provide with a wide variety of models and its implementations.
 
 ## Explaining Custom Layers
 The process behind converting custom layers involves 
-
-
 
 The main potential reasons for handling custom layers are:
 - Layers that are not recognised by openvino are going to throw an error in some point of the process.
@@ -15,6 +14,7 @@ To see the full list of **Supported Layers** go to following [link](https://docs
 
 ## Comparing Model Performance
 My method(s) to compare models before and after conversion to Intermediate Representations was by passing de Pedestrian video as input between both implementations:
+
 
 ### Model size
 The size of the model pre- and post-conversion was...
@@ -30,7 +30,7 @@ The inference time of the model pre- and post-conversion was...
 |Before Conversion|50 ms|55 ms|
 |After Conversion|60 ms|60 ms|
 
-The difference between model accuracy pre - and post-conversion was
+
 
 
 ## Assess Model Use Cases
@@ -74,7 +74,9 @@ In investigating potential people counter models, I tried each of the following 
 
 Note: you can find out more information in this [link](https://www.researchgate.net/figure/High-level-diagram-of-Faster-R-CNN-16-for-generic-object-detection-2-Inception-v2-The_fig3_334987612)
 
-**Model meta data**                                                                                                                                                                                    | Speed (ms) | COCO mAP[^1] | Outputs
+#### Model Metadata
+
+**Model Name**                                                                                                                                                                                    | Speed (ms) | COCO mAP[^1] | Outputs
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------: | :----------: | :-----:
 [faster_rcnn_inception_v2_coco](http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz)                                                                       | 58         | 28           | Boxes
 
@@ -136,7 +138,10 @@ The graph output nodes "num_detections", "detection_boxes", "detection_classes",
 ### Model 2: SSD MobileNet v2
 <img src = "https://1.bp.blogspot.com/-M8UvZJWNW4E/WsKk-tbzp8I/AAAAAAAAChw/OqxBVPbDygMIQWGug4ZnHNDvuyK5FBMcQCLcBGAs/s640/image5.png"></img>
 
-**Model meta data**                                                                                                                                                                                    | Speed (ms) | COCO mAP[^1] | Outputs
+
+#### Model Metadata
+
+**Model Name** | Speed (ms) | COCO mAP[^1] | Outputs
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------: | :----------: | :-----:
 [ssd_mobilenet_v2_coco](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz)                                                                       | 31         | 22           | Boxes
 
@@ -153,16 +158,10 @@ The graph output nodes "num_detections", "detection_boxes", "detection_classes",
 #### Model Optimizer arguments:
 
 ```console
-root@666985e2a18d:/home/workspace/models/ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03# python $MOD_OPT/mo.py --input_model frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json
-  
+root@666985e2a18d:/home/workspace/models/ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03# python $MOD_OPT/mo.py --input_model frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json 
 ```
 
+Actually, This model perform well as the first try, It was well suited for the workspace and I just have to adjust the threshold probability of the boxes.
 
-  - I converted the model to an Intermediate Representation with the following arguments...
-  - The model was insufficient for the app because...
-  - I tried to improve the model for the app by...
-
-
-python main.py -i resources/Pedestrian_Detect_2_1_1.mp4 -m models/ssd_inception_v2_coco_2018_01_28/frozen_inference_graph.xml  -l /opt/intel/openvino/deployment_tools/inference_engine/lib/intel64/libcpu_extension_sse4.so -d CPU -pt 0.6 | ffmpeg -v warning -f rawvideo -pixel_format bgr24 -video_size 768x432 -framerate 24 -i - http://0.0.0.0:3005/fac.ffm
 
 
