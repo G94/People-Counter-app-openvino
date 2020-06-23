@@ -45,6 +45,17 @@ class Network:
         
         
     def load_model(self, model, device="CPU", cpu_extension=None):
+        """
+        :param model: xml file from intemediate representation
+        :type model: string path
+        
+        :param device: Define the type of device in order to set the extension
+        :type device: string
+        
+        :param cpu_extension: extension file path
+        :type cpu_extension: string path
+        
+        """
         ### TODO: Load the model ###
         model_xml = model
         model_bin = os.path.splitext(model_xml)[0] + ".bin"     
@@ -56,24 +67,18 @@ class Network:
         self.network = IENetwork(model = model_xml, weights = model_bin)
         
         ### TODO: Check for supported layers ###
-#         supported = self.plugin.query_network(network = self.network, device_name = device)
-#         unsupported_layers = [l for l in self.network.layers.keys() if l not in supported]
-#         if    len(unsupported_layers)!=0:
-#             print("Unsupported format ", unsupported_layers)
-#             exit(1)
+        supported = self.plugin.query_network(network = self.network, device_name = device)
+        unsupported_layers = [l for l in self.network.layers.keys() if l not in supported]
+        if    len(unsupported_layers)!=0:
+            print("Unsupported format ", unsupported_layers)
+            exit(1)
                
-        
-        
-        ### TODO: Add any necessary extensions ###
-#         if cpu_extension and "CPU" in device:
-#             self.plugin.add_extension(cpu_extension, device)
+       
         
         ### TODO: Return the loaded inference plugin ###
         self.exec_network = self.plugin.load_network(network = self.network, device_name=device) 
         
         ### Note: You may need to update the function parameters. ###
-#         self.input_blob = list(self.network.inputs)[1]
-#         self.output_blob = list(self.network.outputs)[1]
         self.input_blob = next(iter(self.network.inputs))
         self.output_blob = next(iter(self.network.outputs))        
         
@@ -82,15 +87,14 @@ class Network:
     
     def get_input_shape(self):
         ### TODO: Return the shape of the input layer ###
-#         self.input_blob = "image_tensor"
+
         return self.network.inputs[self.input_blob].shape
 
     
     def exec_net(self, request_id_input, image):
         ### TODO: Start an asynchronous request ###
-#         print("start_async")
         self.exec_network.start_async(request_id = request_id_input, inputs = {self.input_blob: image})       
-#         print("----")
+
         ### TODO: Return any necessary information ###
         ### Note: You may need to update the function parameters. ###
         
@@ -112,7 +116,6 @@ class Network:
         else:
             result = self.exec_network.requests[request_id_input].outputs[self.output_blob]
             
-        ## self.exec_network.requests[request_id].outputs[self.output_blob]    
         return result
 
     
