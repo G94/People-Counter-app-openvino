@@ -148,21 +148,21 @@ The graph output nodes "num_detections", "detection_boxes", "detection_classes",
 
 #### Download the model into the workspace.  
 ``` 
-  wget http://download.tensorflow.org/models/object_detection/ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03.tar.gz
+  wget http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz
 ```  
 
 #### Unzip 
  ```
- tar -xvf faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
+ tar -xvf ssd_mobilenet_v2_coco_2018_03_29.tar.gz
  ```  
   
 #### Model Optimizer arguments:
 
 ```console
-root@666985e2a18d:/home/workspace/models/ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03# python $MOD_OPT/mo.py --input_model frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json 
+root@666985e2a18d:/home/workspace/models/ssd_mobilenet_v2_coco_2018_03_29# python $MOD_OPT/mo.py --input_model frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json 
 ```
 
-Actually, This model perform well as the first try, It was well suited for the workspace and I just have to adjust the threshold probability of the boxes.
+`threshold selected`: 0.6 
 
 
 
